@@ -3,9 +3,7 @@ black_win = "Black wins"
 tie = "Tie"
 
 #Input a pair of poker hands and return who wins
-#poker_hands format:"Black:2H 3D 5S 9C KD;White:2C 3H 4S 8C AH"
-def Poker(pair_poker_hands):
-
+def Poker(pair_poker_hands):          #poker_hands format:"Black:2H 3D 5S 9C KD;White:2C 3H 4S 8C AH"
     black_poker_hands, white_poker_hands = pair_poker_hands.split(';')
     black_poker_hands = black_poker_hands.split(':')[1].split(" ")
     white_poker_hands = white_poker_hands.split(':')[1].split(" ")
@@ -66,7 +64,7 @@ def pair(black_number,white_number):
     if black_pair_num > white_pair_num:
         return black_win
     elif black_pair_num < white_pair_num:
-        return black_win
+        return white_win
     else:
         black_left_number = sorted(list(map(int, get_key(black_same_number_dict, 1))))
         white_left_number = sorted(list(map(int, get_key(white_same_number_dict, 1))))
@@ -86,12 +84,12 @@ def two_pairs(black_number, white_number):
     if black_pair_num[1] > white_pair_num[1]:
         return black_win
     elif black_pair_num[1] < white_pair_num[1]:
-        return black_win
+        return white_win
     else:
         if black_pair_num[0] > white_pair_num[0]:
             return black_win
         elif black_pair_num[0] < white_pair_num[0]:
-            return black_win
+            return white_win
         else:
             black_left_number = int(get_key(black_same_number_dict, 1)[0])
             white_left_number = int(get_key(white_same_number_dict, 1)[0])
@@ -102,17 +100,40 @@ def two_pairs(black_number, white_number):
             else:
                 return tie
 def three_of_a_kind(black_number, white_number):
-    return 0
+    black_same_number_dict = get_same_number(black_number)
+    white_same_number_dict = get_same_number(white_number)
+    black_pair_num = int((get_key(black_same_number_dict, 3))[0])
+    white_pair_num = int((get_key(white_same_number_dict, 3))[0])
+    if black_pair_num > white_pair_num:
+        return black_win
+    elif black_pair_num < white_pair_num:
+        return white_win
+    else:
+        return tie
 def straight(black_number, white_number):
-    return 0
+    if black_number[4] > white_number[4]:
+        return black_win
+    elif black_number[4] < white_number[4]:
+        return white_win
+    else:
+        return tie
 def flush(black_number, white_number):
-    return 0
+    return high_card(black_number, white_number)
 def full_house(black_number, white_number):
-    return 0
+    return three_of_a_kind(black_number, white_number)
 def four_of_a_kind(black_number, white_number):
-    return 0
+    black_same_number_dict = get_same_number(black_number)
+    white_same_number_dict = get_same_number(white_number)
+    black_pair_num = int((get_key(black_same_number_dict, 4))[0])
+    white_pair_num = int((get_key(white_same_number_dict, 4))[0])
+    if black_pair_num > white_pair_num:
+        return black_win
+    elif black_pair_num < white_pair_num:
+        return white_win
+    else:
+        return tie
 def straight_flush(black_number, white_number):
-    return 0
+    return straight(black_number, white_number)
 
 def get_key(dict, value):
     return [k for (k, v) in dict.items() if v == value]
@@ -140,7 +161,6 @@ def get_same_number(number):
 
 def get_kind_rank(poker_hands):
     number = get_number(poker_hands)
-    #print(number)
     if is_same_suit(poker_hands):
         if number[0]+1 == number[1] and number[1]+1 == number[2] and number[2]+1 == number[3] and number[3]+1 == number[4]:
             return 9

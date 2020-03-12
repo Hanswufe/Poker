@@ -1,6 +1,6 @@
 import unittest
 
-from Poker import get_same_number,Poker,get_kind_rank
+from Poker import Poker,get_kind_rank
 
 class TestPoker(unittest.TestCase):
 

@@ -47,12 +47,60 @@ def Poker(pair_poker_hands):
             return win
 
 def high_card(black_number, white_number):
-    return 0
+    black_number = black_number[4] * 10000 + black_number[3] * 1000 + black_number[2] * 100 + black_number[1] * 10 + \
+                   black_number[0] * 1
+    white_number = white_number[4] * 10000 + white_number[3] * 1000 + white_number[2] * 100 + white_number[1] * 10 + \
+                   white_number[0] * 1
+    if black_number < white_number:
+        return white_win
+    elif black_number > white_number:
+        return black_win
+    else:
+        return tie
 
 def pair(black_number,white_number):
-   return 0
+    black_same_number_dict = get_same_number(black_number)
+    white_same_number_dict = get_same_number(white_number)
+    black_pair_num = int((get_key(black_same_number_dict, 2))[0])
+    white_pair_num = int((get_key(white_same_number_dict, 2))[0])
+    if black_pair_num > white_pair_num:
+        return black_win
+    elif black_pair_num < white_pair_num:
+        return black_win
+    else:
+        black_left_number = sorted(list(map(int, get_key(black_same_number_dict, 1))))
+        white_left_number = sorted(list(map(int, get_key(white_same_number_dict, 1))))
+        black_left_number = black_left_number[2] * 100 + black_left_number[1] * 10 + black_left_number[0] * 1
+        white_left_number = white_left_number[2] * 100 + white_left_number[1] * 10 + white_left_number[0] * 1
+        if black_left_number > white_left_number:
+            return black_win
+        elif black_left_number < white_left_number:
+            return white_win
+        else:
+            return tie
 def two_pairs(black_number, white_number):
-    return 0
+    black_same_number_dict = get_same_number(black_number)
+    white_same_number_dict = get_same_number(white_number)
+    black_pair_num = sorted((get_key(black_same_number_dict, 2)))
+    white_pair_num = sorted((get_key(white_same_number_dict, 2)))
+    if black_pair_num[1] > white_pair_num[1]:
+        return black_win
+    elif black_pair_num[1] < white_pair_num[1]:
+        return black_win
+    else:
+        if black_pair_num[0] > white_pair_num[0]:
+            return black_win
+        elif black_pair_num[0] < white_pair_num[0]:
+            return black_win
+        else:
+            black_left_number = int(get_key(black_same_number_dict, 1)[0])
+            white_left_number = int(get_key(white_same_number_dict, 1)[0])
+            if black_left_number > white_left_number:
+                return black_win
+            elif black_left_number < white_left_number:
+                return white_win
+            else:
+                return tie
 def three_of_a_kind(black_number, white_number):
     return 0
 def straight(black_number, white_number):

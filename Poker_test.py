@@ -42,7 +42,7 @@ class TestPoker(unittest.TestCase):
         assert Poker("Black:2H 2D 5S 9C KD;White:2C 2S 4S KC 8H") == "Black wins"
 
     def test_two_pairs(self):
-        assert Poker("Black:2H 2D 4S 4C KD;White:2S 2C 4D 4H KH") == "Tie"
+        assert Poker("Black:2H 2D 4S 4C KD;White:4H 4D 2C 2S KH") == "Tie"
 
     def test_three_of_a_kind(self):
         assert Poker("Black:2H 2D 3S 2C KD;White:2S 4H 4C 4S KH") == "White wins"
